@@ -1,5 +1,24 @@
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
 body {
     padding-top: 70px;
+    margin-bottom: 60px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+}
+
+.footer p {
+    font-size: 80%;
+    color: #9e9e9e;
 }
 
 .thumbnail {
