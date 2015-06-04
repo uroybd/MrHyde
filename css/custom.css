@@ -5,9 +5,16 @@ html {
 }
 
 body {
-    padding-top: 70px;
+    padding-top: 50px;
     margin-bottom: 60px;
+    font-family: 'Open Sans', sans-serif;
 }
+
+.jumbotron {
+    background: #8bc34a;
+    color: #ffffff;
+}
+
 
 .footer {
     position: absolute;
