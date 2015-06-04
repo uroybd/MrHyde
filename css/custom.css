@@ -15,6 +15,9 @@ body {
     color: #ffffff;
 }
 
+.navbar-inverse .navbar-header .navbar-brand {
+    color: #8bc34a;
+}
 
 .footer {
     position: absolute;
