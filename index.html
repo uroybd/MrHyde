@@ -7,8 +7,11 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="css/custom.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 </head>
 <body>
+
+    <!-- NAVIGATION -->
     <nav role="navigation" class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -25,14 +28,16 @@
             <div id="navbarCollapse" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#">Home</a></li>
+                    <li><a href="https://play.google.com/store/apps/details?id=org.faudroids.mrhyde">Download</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
             </div>
         </div>
     </nav>
+    <!-- END NAVIGATION -->
 
-    <!-- top jumbotron -->
+    <!-- TOP JUMBOTRON -->
     <div class="jumbotron">
         <div class="container">
             <h1><strong>MrHyde</strong></h1>
@@ -40,48 +45,127 @@
         </div>
     </div>
 
-    <div class="container-fluid">
+    <div class="container marketing">
+        <!-- TOP MARKETING ROW -->
         <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-                <h3>GitHub Integration</h3>
-                <p>MrHyde integrates seamlessly into GitHub services and allows you to easily access all your repositories.</p>
-                <p><a href="github.html" class="btn btn-success">Learn more &raquo;</a></p>
+            <div class="col-lg-4">
+                <img class="img-circle" src="img/ic_github.svg" alt="GitHub Integration" width="140" height="140">
+                <h2>GitHub Integration</h2>
+                <p>
+                    MrHyde integrates seamlessly with your GitHub account and gives you direct access to all your files without
+                    having a download complete repositories.
+                </p>
+                <p><a class="btn btn-default" href="#github">Learn more &raquo;</a></p>
             </div>
-            <div class="clearfix visible-xs-block"></div>
-            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-                <h3>Markdown Editor</h3>
-                <p>MrHyde comes with an integrated Markdown editor which also features some Jekyll specific extensions.</p>
-                <p><a href="markdown.html" class="btn btn-success">Learn more &raquo;</a></p>
+            <div class="col-lg-4">
+                <img class="img-circle" src="img/ic_preview.svg" alt="Full Preview" width="140" height="140">
+                <h2>Full Preview</h2>
+                <p>Preview your entire website before making any commits, making sure that everything looks exactely the way you want it to.</p>
+                <p><a class="btn btn-default" href="#preview">Learn more &raquo;</a></p>
             </div>
-            <div class="clearfix visible-xs-block"></div>
-            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-                <h3>Image Handling</h3>
-                <p>With MrHyde it is possible to easily integrate images within your blog posts.</p>
-                <p><a href="images.html" class="btn btn-success">Learn more &raquo;</a></p>
-            </div>
-            <div class="clearfix visible-xs-block"></div>
-            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-                <h3>Preview Mode</h3>
-                <p>One of the coolest features of MrHyde is it's dynamic preview mode, where you can preview your post before publishing it.</p>
-                <p><a href="preview.html" class="btn btn-success">Learn more &raquo;</a></p>
+            <div class="col-lg-4">
+                <img class="img-circle" src="img/ic_editor.svg" alt="Markdown Editor" width="140" height="140">
+                <h2>Markdown Editor</h2>
+                <p>MrHyde comes with an integrated Markdown editor to smoothen some of the wrinkles of working with Markdown / Jekyll on a phone</p>
+                <p><a class="btn btn-default" href="#editor">Learn more &raquo;</a></p>
             </div>
         </div>
-    </div>
-    <div class="container-fluid, text-center">
-        <p>
+        <!-- END TOP MARKETING ROW -->
+
+        <!-- FEATURE LIST -->
+        <a name="github"></a>
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">GitHub Integration</h2>
+                <p class="lead">
+                    MrHyde lets you access your GitHub account and browse your repositories on the
+                    go, create and edit new files and push all those changes back to GitHub.
+                    You can even work with private and organization repositories.
+                </p>
+                <p class="lead">
+                    Have a big repo that you don't / cannot checkout via git on your phone. No problem!
+                    MrHyde only downloads those files that you need for editing and keeps everything else on
+                    GitHub. So you get the best of both worlds, access to all your files while not filling up
+                    precious memory on your phone.
+                </p>
+            </div>
+            <div class="col-md-5">
+                <img class="featurette-image img-responsive center-block" src="img/Screenshot_2015-05-17-00-30-54.png" alt="Repository list">
+            </div>
+        </div>
+
+        <a name="preview"></a>
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-7 col-md-push-5">
+                <h2 class="featurette-heading">Full preview</h2>
+                <p class="lead">
+                    So now that you have written that awesome post that you have always wanted the
+                    world to see, wonder what it looks like with all your custom CSS and templates?
+                    Good thing MrHyde has a preview function built in!
+                </p>
+                <p class="lead">
+                    Whenever you want to preview changes to a post, a diff of your local
+                    changes is sent to our webservices, which create a temporary clone of your
+                    repository, apply the diff, compile the project using a full Jekyll installation
+                    and return a preview URL which you can view like any other webpage.
+                </p>
+                <p class="lead">
+                    Worried about other seeing your unfinished post before publishing? No need.
+                    Preview URLs are randomly generated and auto-deleted 10 minutes after first
+                    creating them, making sure that we don't steal any of your spotlight
+                    when finally releasing your post to the world.
+                </p>
+            </div>
+            <div class="col-md-5 col-md-pull-7">
+                <img class="featurette-image img-responsive center-block" src="img/Screenshot_2015-05-04-00-13-35.png" alt="GitHub login">
+            </div>
+        </div>
+
+        <a name="editor"></a>
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">Markdown Editor. <span class="text-muted">IN PLANNING.</span></h2>
+                <p class="lead">
+                    Typing Markdown and Jekyll front matter per hand on a smartphone / tablet is
+                    not particularly fun.
+                    How much cooler would it be to click a button and have the most common
+                    syntax elements generated right for you? Awesome.
+                </p>
+            </div>
+            <div class="col-md-5">
+                <img class="featurette-image img-responsive center-block" src="img/Screenshot_2015-05-04-00-15-23.png" alt="GitHub login">
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+        <!-- END FEATURE LIST -->
+
+        <div class="container text-center playstore">
             <a href="https://play.google.com/store/apps/details?id=org.faudroids.mrhyde">
-                <img alt="Get it on Google Play" src="https://developer.android.com/images/brand/en_generic_rgb_wo_45.png" />
+                <img alt="Get it on Google Play" src="https://developer.android.com/images/brand/en_generic_rgb_wo_60.png"/>
             </a>
-        </p>
+        </div>
     </div>
+
 
     <!-- footer -->
     <footer class="footer text-center">
-        <img alt="Made with heart" src="img/heart_grey.png" />
-        <p>
-            Made by a small team of night time coders in Erlangen, Germany<br>
-            &copy; FauDroids 2015
-        </p>
+        <div id="footer-social">
+            <a class="btn-lg btn-social-icon btn-twitter">
+                <i class="fa fa-twitter"></i>
+            </a>
+            <a class="btn-lg btn-social-icon btn-github" href="https://github.com/FauDroids/MrHyde">
+                <i class="fa fa-github"></i>
+            </a>
+        </div>
+
+        <p id="footer-copyright">Copyright &copy; FauDroids 2015</p>
     </footer>
 
     <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>

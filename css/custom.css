@@ -4,9 +4,13 @@ html {
     min-height: 100%;
 }
 
+.navbar-inverse .navbar-header .navbar-brand {
+    color: #8bc34a;
+}
+
 body {
     padding-top: 50px;
-    margin-bottom: 60px;
+    margin-bottom: 200px;
     font-family: 'Open Sans', sans-serif;
 }
 
@@ -15,21 +19,70 @@ body {
     color: #ffffff;
 }
 
-.navbar-inverse .navbar-header .navbar-brand {
-    color: #8bc34a;
+.marketing {
+    padding-top: 20px;
 }
+
+.marketing .btn:hover {
+    background: #8bc34a;
+    color: white;
+}
+
+.marketing .col-lg-4 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+.marketing h2 {
+    font-weight: normal;
+}
+.marketing .col-lg-4 p {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.featurette-divider {
+    margin: 80px 0; /* Space out the Bootstrap <hr> more */
+}
+
+/* Thin out the marketing headings */
+.featurette-heading {
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -1px;
+}
+
+.marketing .playstore img {
+    padding-bottom: 80px;
+}
+
 
 .footer {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 60px;
+    height: 200px;
+    background: #222222;
+    color: #8a8a8a;
 }
 
-.footer p {
-    font-size: 80%;
-    color: #9e9e9e;
+#footer-social {
+    margin-top: 20px;
 }
+
+#footer-social .btn-social-icon {
+    font-size: 300%;
+    color: white;
+}
+
+#footer-message{
+    font-size: 120%;
+    padding-top: 20px;
+}
+
+#footer-copyright {
+    padding-top: 40px;
+}
+
 
 .thumbnail {
     border: none;
