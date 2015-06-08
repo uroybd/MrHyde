@@ -33,6 +33,12 @@ body {
     padding-top: 30px;
 }
 
+.jumbotron h2 {
+    font-weight: 700;
+    text-shadow: 1px 1px 3px #565656;
+    /*text-shadow: -1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray;*/
+}
+
 
 .marketing {
     padding-top: 20px;
