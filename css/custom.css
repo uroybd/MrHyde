@@ -15,9 +15,24 @@ body {
 }
 
 .jumbotron {
-    background: #8bc34a;
+    background: url("../img/background.svg") repeat;
     color: #ffffff;
+    padding-top: 70px;
+    padding-bottom: 100px;
 }
+
+@media (min-width: 768px) {
+    .jumbotron {
+        padding-top: 200px;
+        padding-bottom: 180px;
+        padding-left: 100px;
+    }
+}
+
+.jumbotron .test-tube {
+    padding-top: 30px;
+}
+
 
 .marketing {
     padding-top: 20px;
@@ -78,12 +93,4 @@ body {
     padding-top: 30px;
     margin-left: 10px;
     margin-right: 10px;
-}
-
-.thumbnail {
-    border: none;
-}
-.thumbnail img {
-    max-width: 50%;
-    height: auto;
 }
