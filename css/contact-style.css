@@ -19,14 +19,7 @@
     text-shadow: 1px 1px 3px #565656;
 }
 
-.header-team {
-    margin-bottom: 50px;
+.space {
+    height: 50px;
 }
 
-.person {
-    margin-bottom: 50px;
-}
-
-.person p {
-    font-style: italic;
-}
