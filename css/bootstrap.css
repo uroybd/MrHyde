@@ -3454,7 +3454,7 @@ tbody.collapse.in {
   right: 0;
   left: auto;
 }
-.dropdown-menu .divider {
+.dropdown-menu .custom-divider {
   height: 1px;
   margin: 9px 0;
   overflow: hidden;
@@ -4550,7 +4550,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {
     border-color: #080808;
   }
-  .navbar-inverse .navbar-nav .open .dropdown-menu .divider {
+  .navbar-inverse .navbar-nav .open .dropdown-menu .custom-divider {
     background-color: #080808;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
