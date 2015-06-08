@@ -1,0 +1,32 @@
+.jumbotron {
+    background: url("../img/background.svg") repeat;
+    color: #ffffff;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-left: 50px;
+}
+
+@media (min-width: 768px) {
+    .jumbotron {
+        padding-top: 100px;
+        padding-bottom: 100px;
+        padding-left: 100px;
+    }
+}
+
+.jumbotron h1 {
+    font-weight: 700;
+    text-shadow: 1px 1px 3px #565656;
+}
+
+.header-team {
+    margin-bottom: 50px;
+}
+
+.person {
+    margin-bottom: 50px;
+}
+
+.person p {
+    font-style: italic;
+}
