@@ -1,7 +1,7 @@
 # MrHyde
 Avoid turning yourself into a raging monster by using our Android app to ease blogging using Jekyll and GitHub pages.
 
-The repository is devided into two parts:
+The repository is divided into two parts:
 - **client**: the android application which has been published on the [Google Playstore](https://play.google.com/store/apps/details?id=org.faudroids.mrhyde)
 - **server**: the server which handles creating and temporarily hosting Jekyll previews
 
@@ -38,11 +38,11 @@ As soon as the status code is 0, the script will redirect to the jekyll html out
  * Python
  * git
  * ruby and [jekyll](http://jekyllrb.com/) (Jekyll needs to be in $PATH!)
- * [GitPython](https://github.com/gitpython-developers/GitPython) 
- * [bottle](http://bottlepy.org/docs/dev/index.html) 
- 
+ * [GitPython](https://github.com/gitpython-developers/GitPython)
+ * [bottle](http://bottlepy.org/docs/dev/index.html)
+
  #### Configuration
- 
+
  There is a config_example.ini in the server root folder. Copy/Rename it to config.ini and open and edit it:
  * [default]path = # Path where the repos are going to be stored
  * [default]deploy_path = # Path where the built page is going to be deployed from
