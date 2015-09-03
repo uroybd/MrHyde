@@ -417,7 +417,7 @@ public final class FileManager {
 						commitResource.setType(TypedResource.TYPE_COMMIT);
 						commitResource.setUrl(commit.getUrl());
 
-						return gitHubApiWrapper.getReference(repository, "heads/master")
+						return gitHubApiWrapper.getReference(repository, "heads/" + repository.getDefaultBranch())
 								.flatMap(new Func1<Reference, Observable<Reference>>() {
 									@Override
 									public Observable<Reference> call(Reference reference) {
