@@ -282,7 +282,7 @@ public class JekyllManager {
 		try {
 			// get date
 			int year = Integer.valueOf(matcher.group(1));
-			int month = Integer.valueOf(matcher.group(2));
+			int month = Integer.valueOf(matcher.group(2)) - 1; // java Calendar is 0 based
 			int day = Integer.valueOf(matcher.group(3));
 			Calendar calendar = Calendar.getInstance();
 			calendar.set(year, month, day);
