@@ -24,17 +24,21 @@ public final class GitHubModule implements Module {
 
 
 	@Provides
-	public RestAdapter provideRestAdapter() {
+	public GitHubAuthApi provideAuthApi() {
 		return new RestAdapter.Builder()
 				.setEndpoint("https://github.com")
-				.build();
+				.build()
+				.create(GitHubAuthApi.class);
 	}
 
 
 	@Provides
 	@Inject
-	public GitHubAuthApi provideGitHubApi(RestAdapter restAdapter) {
-		return restAdapter.create(GitHubAuthApi.class);
+	public GitHubEmailsApi provideEmailsApi(final LoginManager loginManager) {
+		return new RestAdapter.Builder()
+				.setEndpoint("https://api.github.com")
+				.build()
+				.create(GitHubEmailsApi.class);
 	}
 
 

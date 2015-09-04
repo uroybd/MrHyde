@@ -16,7 +16,9 @@ import org.eclipse.egit.github.core.User;
 import org.eclipse.egit.github.core.service.UserService;
 import org.faudroids.mrhyde.R;
 import org.faudroids.mrhyde.app.MigrationManager;
+import org.faudroids.mrhyde.github.Email;
 import org.faudroids.mrhyde.github.GitHubAuthApi;
+import org.faudroids.mrhyde.github.GitHubEmailsApi;
 import org.faudroids.mrhyde.github.LoginManager;
 import org.faudroids.mrhyde.github.TokenDetails;
 import org.faudroids.mrhyde.ui.utils.AbstractActionBarActivity;
@@ -50,6 +52,7 @@ public final class LoginActivity extends AbstractActionBarActivity {
 
 	@InjectView(R.id.login_button) private Button loginButton;
 	@Inject private GitHubAuthApi gitHubAuthApi;
+	@Inject private GitHubEmailsApi gitHubEmailsApi;
 	@Inject private LoginManager loginManager;
 	@Inject private MigrationManager migrationManager;
 
@@ -157,7 +160,16 @@ public final class LoginActivity extends AbstractActionBarActivity {
 							UserService userService = new UserService();
 							userService.getClient().setOAuth2Token(tokenDetails.getAccessToken());
 							User user = userService.getUser();
-							List<String> emails = userService.getEmails();
+							List<Email> emails = gitHubEmailsApi.getEmails(tokenDetails.getAccessToken());
+							Email primaryEmail = null;
+							for (Email email : emails) {
+								if (email.isPrimary()) {
+									primaryEmail = email;
+									break;
+								}
+							}
+							if (primaryEmail == null && !emails.isEmpty()) primaryEmail = emails.get(0);
+							String emailString = (primaryEmail == null) ? "dummy" : primaryEmail.getEmail();
 
 							// load avatar
 							URL url = new URL(user.getAvatarUrl());
@@ -166,7 +178,7 @@ public final class LoginActivity extends AbstractActionBarActivity {
 							connection.connect();
 							InputStream input = connection.getInputStream();
 							Bitmap avatar = BitmapFactory.decodeStream(input);
-							return Observable.just(new LoginManager.Account(tokenDetails.getAccessToken(), user.getLogin(), emails.get(0), avatar));
+							return Observable.just(new LoginManager.Account(tokenDetails.getAccessToken(), user.getLogin(), emailString, avatar));
 
 						} catch (IOException e) {
 							return Observable.error(e);
