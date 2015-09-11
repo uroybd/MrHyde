@@ -1,5 +1,10 @@
 # MrHyde
+
+![Playstore banner](client/playstore/banner.png)
+
 Avoid turning yourself into a raging monster by using our Android app to ease blogging using Jekyll and GitHub pages.
+
+Availalbe on the [Google Playstore](https://play.google.com/store/apps/details?id=org.faudroids.mrhyde)!
 
 The repository is divided into two parts:
 - **client**: the android application which has been published on the [Google Playstore](https://play.google.com/store/apps/details?id=org.faudroids.mrhyde)
