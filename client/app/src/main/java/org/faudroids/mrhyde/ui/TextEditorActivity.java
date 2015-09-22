@@ -134,6 +134,10 @@ public final class TextEditorActivity extends AbstractActionBarActivity {
 			}
 		});
 
+		// setup undo / redo
+		undoRedoEditText = new UndoRedoEditText(editText);
+		undoRedoEditText.setMaxHistorySize(EDITOR_MAX_HISTORY);
+
 		// load selected file
 		if (savedInstanceState != null && savedInstanceState.getSerializable(STATE_FILE_DATA) != null) {
 			editText.post(new Runnable() {
@@ -313,11 +317,8 @@ public final class TextEditorActivity extends AbstractActionBarActivity {
 			// set text
 			if (restoredText != null) editText.setText(restoredText);
 			else editText.setText(new String(fileData.getData(), "UTF-8"));
+			undoRedoEditText.clearHistory(); // otherwise setting this text would be part of history
 			editText.setTypeface(Typeface.MONOSPACE);
-
-			// setup undo / redo
-			undoRedoEditText = new UndoRedoEditText(editText);
-			undoRedoEditText.setMaxHistorySize(EDITOR_MAX_HISTORY);
 
 			// start edit mode
 			if (startEditMode) startEditMode();
