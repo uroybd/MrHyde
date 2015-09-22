@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -34,6 +35,9 @@ import org.faudroids.mrhyde.utils.DefaultErrorAction;
 import org.faudroids.mrhyde.utils.DefaultTransformer;
 import org.faudroids.mrhyde.utils.ErrorActionBuilder;
 import org.faudroids.mrhyde.utils.HideSpinnerAction;
+import org.parceler.Parcel;
+import org.parceler.ParcelConstructor;
+import org.parceler.Parcels;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -59,7 +63,7 @@ public final class TextEditorActivity extends AbstractActionBarActivity {
 
 	private static final String
 			STATE_FILE_DATA = "STATE_FILE_DATA",
-			STATE_TEXT = "STATE_TEXT",
+			STATE_EDIT_TEXT = "STATE_EDIT_TEXT",
 			STATE_EDIT_MODE = "STATE_EDIT_MODE",
 			STATE_UNDO_REDO = "STATE_UNDO_REDO";
 
@@ -145,8 +149,8 @@ public final class TextEditorActivity extends AbstractActionBarActivity {
 				public void run() {
 					fileData = (FileData) savedInstanceState.getSerializable(STATE_FILE_DATA);
 					boolean startEditMode = savedInstanceState.getBoolean(STATE_EDIT_MODE);
-					String restoredText = savedInstanceState.getString(STATE_TEXT);
-					showContent(startEditMode, restoredText);
+					EditTextState editTextState = Parcels.unwrap(savedInstanceState.getParcelable(STATE_EDIT_TEXT));
+					showContent(startEditMode, editTextState);
 					undoRedoEditText.restoreInstanceState(savedInstanceState, STATE_UNDO_REDO);
 				}
 			});
@@ -163,7 +167,8 @@ public final class TextEditorActivity extends AbstractActionBarActivity {
 		super.onSaveInstanceState(outState);
 		outState.putSerializable(STATE_FILE_DATA, fileData);
 		outState.putBoolean(STATE_EDIT_MODE, isEditMode());
-		outState.putString(STATE_TEXT, editText.getText().toString());
+		EditTextState editTextState = new EditTextState(editText.getText().toString(), editText.getSelectionStart());
+		outState.putParcelable(STATE_EDIT_TEXT, Parcels.wrap(editTextState));
 		undoRedoEditText.saveInstanceState(outState, STATE_UNDO_REDO);
 	}
 
@@ -311,11 +316,11 @@ public final class TextEditorActivity extends AbstractActionBarActivity {
 	}
 
 
-	private void showContent(boolean startEditMode, String restoredText) {
+	private void showContent(boolean startEditMode, @Nullable EditTextState editTextState) {
 		setTitle(fileData.getFileNode().getPath());
 		try {
 			// set text
-			if (restoredText != null) editText.setText(restoredText);
+			if (editTextState != null) editText.setText(editTextState.text);
 			else editText.setText(new String(fileData.getData(), "UTF-8"));
 			undoRedoEditText.clearHistory(); // otherwise setting this text would be part of history
 			editText.setTypeface(Typeface.MONOSPACE);
@@ -323,6 +328,12 @@ public final class TextEditorActivity extends AbstractActionBarActivity {
 			// start edit mode
 			if (startEditMode) startEditMode();
 			else stopEditMode();
+
+			// restore cursor position
+			if (editTextState != null) {
+				editText.setSelection(editTextState.cursorPosition);
+			}
+
 		} catch (UnsupportedEncodingException uee) {
 			Timber.e(uee, "failed to read content");
 		}
@@ -429,6 +440,24 @@ public final class TextEditorActivity extends AbstractActionBarActivity {
 				numLinesTextView.setTypeface(Typeface.MONOSPACE);
 			}
 		});
+	}
+
+
+	/**
+	 * State of the {@link EditText}. Public because required by Parceler.
+	 */
+	@Parcel
+	public static class EditTextState {
+
+		public final String text;
+		public final int cursorPosition;
+
+		@ParcelConstructor
+		public EditTextState(String text, int cursorPosition) {
+			this.text = text;
+			this.cursorPosition = cursorPosition;
+		}
+
 	}
 
 }
