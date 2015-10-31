@@ -62,10 +62,11 @@ public class SettingsFragment extends AbstractFragment {
     }
 
     private AlertDialog.Builder setOnClickDialogForTextView(TextView textView, final int titleResourceId, final int msgResourceId) {
-        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity())
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity(), R.style.AlertDialogStyle)
                 .setTitle(titleResourceId)
-                .setMessage(Html.fromHtml(getString(msgResourceId)))
+                .setMessage(Html.fromHtml("<font color='#000000'>" + getString(msgResourceId) + "</font>"))
                 .setPositiveButton(android.R.string.ok, null);
+
 
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
