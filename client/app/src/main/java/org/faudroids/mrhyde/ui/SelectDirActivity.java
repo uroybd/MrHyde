@@ -30,7 +30,7 @@ public final class SelectDirActivity extends AbstractDirActivity {
 		super.onCreate(savedInstanceState);
 
 		// hide action bar
-		getSupportActionBar().hide();
+		if (getSupportActionBar() != null) getSupportActionBar().hide();
 
 		// setup buttons
 		backView.setOnClickListener(new View.OnClickListener() {
