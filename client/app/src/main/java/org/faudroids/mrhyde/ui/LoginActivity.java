@@ -1,12 +1,12 @@
 package org.faudroids.mrhyde.ui;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
