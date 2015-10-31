@@ -56,8 +56,16 @@
 -dontwarn sun.misc.Unsafe
 -dontwarn roboguice.**
 -dontwarn com.squareup.**
+-dontwarn retrofit.**
 -dontwarn com.google.**
 -dontwarn org.ietf.**
 -dontwarn com.jcraft.**
 -dontwarn org.slf4j.**
 -dontwarn okio.BufferedSink
+
+# required since appcompat v23, see also https://code.google.com/p/android/issues/detail?id=190237
+-keep class com.google.android.gms.** { *; }
+-keep public class com.google.android.gms.**
+-dontwarn com.google.android.gms.**
+-keep class android.support.v7.** { *; }
+-keep interface android.support.v7.** { *; }
