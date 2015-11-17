@@ -1,5 +1,6 @@
 import time
 from os.path import join
+from os import listdir
 import random
 import string
 from os.path import isdir
@@ -45,3 +46,6 @@ class RepoUtils:
             return True
         else:
             return False
+
+    def get_current_repo_count(self):
+        return len(listdir(self.cm().get_base_dir()))

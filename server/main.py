@@ -129,6 +129,11 @@ def show_repository(id):
         abort(404, 'Repository not found!')
 
 
+@jekyll_server.get('/jekyll/stats/')
+def stats():
+    return template('list_view', rows=utils.get_current_repo_count(), header="Currently hosted repos:")
+
+
 @jekyll_server.get('/jekyll/<id:path>/<static_path>')
 def download_file(id, static_path):
     if id == 'static':
