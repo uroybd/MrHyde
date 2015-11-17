@@ -131,7 +131,7 @@ def show_repository(id):
 
 @jekyll_server.get('/jekyll/stats/')
 def stats():
-    return template('list_view', rows=utils.get_current_repo_count(), header="Currently hosted repos:")
+    return template('list_view', rows=[utils.get_current_repo_count()], header="Currently hosted repos:")
 
 
 @jekyll_server.get('/jekyll/<id:path>/<static_path>')
