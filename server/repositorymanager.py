@@ -1,7 +1,7 @@
 from sqlite3 import Error as SQLError
 from binascii import Error as Base64Error
 import logging
-from time import time
+from time import time, strftime
 from shutil import rmtree
 from os.path import isdir, join, dirname, realpath
 from os import makedirs, chdir, getcwd
@@ -19,6 +19,7 @@ import repoutils
 OWN_PATH = dirname(realpath(__file__))
 
 logger = logging.getLogger(__name__)
+
 
 class RepositoryManager:
     __fm = None
@@ -69,7 +70,7 @@ class RepositoryManager:
             t.daemon = True
             t.start()
 
-            return (id, ''.join(['http://', id, '.', self.cm().get_base_url(), '/poller.html']))
+            return id, ''.join(['http://', id, '.', self.cm().get_base_url(), '/poller.html'])
         except SQLError as exception:
             logger.error(exception.__str__())
             raise
@@ -81,7 +82,7 @@ class RepositoryManager:
             self.__git.clone(url, repo_path)
             if diff is not None and diff is not '':
                 self.apply_diff(id, repo_path, diff)
-            logger.info('Repository cloned to ' + repo_path + '.')
+            logger.info(self.timestamp() + ' Repository cloned to ' + repo_path + '.')
             self.jm().build(repo_path, deploy_path, draft)
             self.fm().dispatch_static_files(deploy_path, static_files)
 
@@ -142,9 +143,9 @@ class RepositoryManager:
             self.apply_diff(id, repo_path, diff_file)
             build_successful = self.jm().build(repo_path, deploy_path, draft)
             if build_successful:
-                return (id, ''.join(['https://', id, '.', self.__base_url]))
+                return id, ''.join(['https://', id, '.', self.__base_url])
             else:
-                return (id, self.jm().get_errors())
+                return id, self.jm().get_errors()
         except OSError as exception:
             logger.error(exception.strerror)
             raise
@@ -173,3 +174,6 @@ class RepositoryManager:
             raise
         finally:
             chdir(old_dir)
+
+    def timestamp(self):
+        return strftime("%Y-%m-%d %H:%M:%S")

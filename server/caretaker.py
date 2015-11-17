@@ -8,7 +8,7 @@ import sys
 import configmanager
 import dbhandler
 import logging
-from time import time
+from time import time, strftime
 
 logging.basicConfig(filename='caretaker.log', level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -53,7 +53,7 @@ class Caretaker:
             database = dbhandler.DbHandler(self.get_config().get_db_file())
             old_repos = database.list('repo', '', 'last_used < %s and active > 0' % timestamp)
             for repo in old_repos:
-                logger.info('Deleting repo %s' % repo['path'])
+                logger.info(self.timestamp() + ' Deleting repo %s' % repo['path'])
                 try:
                     rmtree(repo['path'])
                 except OSError as exception:
@@ -87,7 +87,7 @@ class Caretaker:
             old_repos = database.list('repo', '', 'active < 1')
             for repo in old_repos:
                 try:
-                    logger.info('Cleaning up deploy path %s' % repo['deploy_path'])
+                    logger.info(self.timestamp() + ' Cleaning up deploy path %s' % repo['deploy_path'])
                     rmtree(repo['deploy_path'])
                 except OSError as exception:
                     logger.error(exception.strerror)
@@ -96,6 +96,9 @@ class Caretaker:
         except SQLError:
             logger.error("Database error, we're in trouble!")
             raise
+
+    def timestamp(self):
+        return strftime("%Y-%m-%d %H:%M:%S")
 
 if __name__ == '__main__':
     if len(sys.argv) < 3:
