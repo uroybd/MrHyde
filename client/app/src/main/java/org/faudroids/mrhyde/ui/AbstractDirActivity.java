@@ -253,9 +253,9 @@ abstract class AbstractDirActivity extends AbstractActionBarActivity {
 					FileNode fileNode = (FileNode) pathNode;
 					if (fileUtils.isImage(pathNode.getPath())) {
 						imageResource = R.drawable.image;
-					} else if (jekyllManager.isPostsDir(pathNode.getParent()) && jekyllManager.parsePost(fileNode).isPresent()) {
+					} else if (jekyllManager.isPostsDirOrSubDir(pathNode.getParent()) && jekyllManager.parsePost(fileNode).isPresent()) {
 						imageResource = R.drawable.post;
-					} else if (jekyllManager.isDraftsDir(pathNode.getParent()) && jekyllManager.parseDraft(fileNode).isPresent()) {
+					} else if (jekyllManager.isDraftsDirOrSubDir(pathNode.getParent()) && jekyllManager.parseDraft(fileNode).isPresent()) {
 						imageResource = R.drawable.draft;
 					} else {
 						imageResource = R.drawable.file;
