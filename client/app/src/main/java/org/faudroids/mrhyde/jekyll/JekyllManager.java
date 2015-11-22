@@ -61,10 +61,10 @@ public class JekyllManager {
 						if (!dirNode.getEntries().containsKey(DIR_POSTS)) return Observable.just(posts);
 
 						// parse titles
-						DirNode postsDir = (DirNode) dirNode.getEntries().get(DIR_POSTS);
-						for (AbstractNode postNode : postsDir.getEntries().values()) {
-							if (!(postNode instanceof FileNode)) continue;
-							Optional<Post> post = parsePost((FileNode) postNode);
+						List<FileNode> fileNodes = new ArrayList<>();
+						getAllFileNodes((DirNode) dirNode.getEntries().get(DIR_POSTS), fileNodes);
+						for (FileNode fileNode : fileNodes) {
+							Optional<Post> post = parsePost(fileNode);
 							if (post.isPresent()) posts.add(post.get());
 						}
 
@@ -91,10 +91,10 @@ public class JekyllManager {
 						if (!dirNode.getEntries().containsKey(DIR_DRAFTS)) return Observable.just(drafts);
 
 						// parse titles
-						DirNode draftsDir = (DirNode) dirNode.getEntries().get(DIR_DRAFTS);
-						for (AbstractNode draftNode: draftsDir.getEntries().values()) {
-							if (!(draftNode instanceof FileNode)) continue;
-							Optional<Draft> draft = parseDraft((FileNode) draftNode);
+						List<FileNode> fileNodes = new ArrayList<>();
+						getAllFileNodes((DirNode) dirNode.getEntries().get(DIR_DRAFTS), fileNodes);
+						for (FileNode fileNode : fileNodes) {
+							Optional<Draft> draft = parseDraft((FileNode) fileNode);
 							if (draft.isPresent()) drafts.add(draft.get());
 						}
 
@@ -104,6 +104,18 @@ public class JekyllManager {
 						return Observable.just(drafts);
 					}
 				});
+	}
+
+
+	private void getAllFileNodes(DirNode dirNode, List<FileNode> fileNodes) {
+		// parse titles
+		for (AbstractNode childNode : dirNode.getEntries().values()) {
+			if (childNode instanceof DirNode) {
+				getAllFileNodes((DirNode) childNode, fileNodes);
+			} else if (childNode instanceof FileNode) {
+				fileNodes.add((FileNode) childNode);
+			}
+		}
 	}
 
 
