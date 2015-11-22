@@ -5,9 +5,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.faudroids.mrhyde.R;
+import org.faudroids.mrhyde.git.DirNode;
 import org.faudroids.mrhyde.jekyll.Draft;
 import org.faudroids.mrhyde.jekyll.Post;
 import org.faudroids.mrhyde.ui.utils.JekyllUiUtils;
+import org.roboguice.shaded.goole.common.base.Optional;
 
 import java.util.List;
 
@@ -27,7 +29,7 @@ public class PostsActivity extends AbstractJekyllActivity<Post> {
 
 	@Override
 	protected void onAddClicked(JekyllUiUtils.OnContentCreatedListener<Post> contentListener) {
-		jekyllUiUtils.showNewPostDialog(jekyllManager, repository, contentListener);
+		jekyllUiUtils.showNewPostDialog(jekyllManager, repository, Optional.<DirNode>absent(), contentListener);
 	}
 
 	@Override

@@ -28,6 +28,7 @@ import com.squareup.picasso.Picasso;
 
 import org.eclipse.egit.github.core.Repository;
 import org.faudroids.mrhyde.R;
+import org.faudroids.mrhyde.git.DirNode;
 import org.faudroids.mrhyde.git.RepositoryManager;
 import org.faudroids.mrhyde.jekyll.AbstractJekyllContent;
 import org.faudroids.mrhyde.jekyll.Draft;
@@ -41,6 +42,7 @@ import org.faudroids.mrhyde.utils.DefaultErrorAction;
 import org.faudroids.mrhyde.utils.DefaultTransformer;
 import org.faudroids.mrhyde.utils.ErrorActionBuilder;
 import org.faudroids.mrhyde.utils.HideSpinnerAction;
+import org.roboguice.shaded.goole.common.base.Optional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -158,7 +160,7 @@ public final class RepoOverviewActivity extends AbstractActionBarActivity {
 			@Override
 			public void onClick(View v) {
 				addButton.collapse();
-				jekyllUiUtils.showNewPostDialog(jekyllManager, repository, new JekyllUiUtils.OnContentCreatedListener<Post>() {
+				jekyllUiUtils.showNewPostDialog(jekyllManager, repository, Optional.<DirNode>absent(), new JekyllUiUtils.OnContentCreatedListener<Post>() {
 					@Override
 					public void onContentCreated(Post post) {
 						loadJekyllContent();
@@ -170,7 +172,7 @@ public final class RepoOverviewActivity extends AbstractActionBarActivity {
 			@Override
 			public void onClick(View v) {
 				addButton.collapse();
-				jekyllUiUtils.showNewDraftDialog(jekyllManager, repository, new JekyllUiUtils.OnContentCreatedListener<Draft>() {
+				jekyllUiUtils.showNewDraftDialog(jekyllManager, repository, Optional.<DirNode>absent(), new JekyllUiUtils.OnContentCreatedListener<Draft>() {
 					@Override
 					public void onContentCreated(Draft draft) {
 						loadJekyllContent();

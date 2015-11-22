@@ -6,9 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.faudroids.mrhyde.R;
+import org.faudroids.mrhyde.git.DirNode;
 import org.faudroids.mrhyde.jekyll.Draft;
 import org.faudroids.mrhyde.jekyll.Post;
 import org.faudroids.mrhyde.ui.utils.JekyllUiUtils;
+import org.roboguice.shaded.goole.common.base.Optional;
 
 import java.util.List;
 
@@ -46,7 +48,7 @@ public class DraftsActivity extends AbstractJekyllActivity<Draft> {
 
 	@Override
 	protected void onAddClicked(JekyllUiUtils.OnContentCreatedListener<Draft> contentListener) {
-		jekyllUiUtils.showNewDraftDialog(jekyllManager, repository, contentListener);
+		jekyllUiUtils.showNewDraftDialog(jekyllManager, repository, Optional.<DirNode>absent(), contentListener);
 	}
 
 	@Override

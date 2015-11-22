@@ -144,17 +144,22 @@ public class JekyllManager {
 				.flatMap(new Func1<DirNode, Observable<Post>>() {
 					@Override
 					public Observable<Post> call(DirNode rootNode) {
-						try {
-							// create post file and setup front matter
-							FileNode postNode = fileManager.createNewFile(assertDir(rootNode, DIR_POSTS), postTitleToFilename(title));
-							setupDefaultFrontMatter(postNode, title);
-							return Observable.just(new Post(title, Calendar.getInstance().getTime(), postNode));
-
-						} catch (IOException ioe) {
-							return Observable.error(ioe);
-						}
+						return createNewPost(title, assertDir(rootNode, DIR_POSTS));
 					}
 				});
+	}
+
+
+	public Observable<Post> createNewPost(final String title, final DirNode postDir) {
+		if (!isPostsDirOrSubDir(postDir)) throw new IllegalArgumentException("not a post dir " + postDir.getFullPath());
+		FileNode postNode = fileManager.createNewFile(postDir, postTitleToFilename(title));
+		try {
+			// create post file and setup front matter
+			setupDefaultFrontMatter(postNode, title);
+		} catch (IOException ioe) {
+			return Observable.error(ioe);
+		}
+		return Observable.just(new Post(title, Calendar.getInstance().getTime(), postNode));
 	}
 
 
@@ -166,17 +171,23 @@ public class JekyllManager {
 				.flatMap(new Func1<DirNode, Observable<Draft>>() {
 					@Override
 					public Observable<Draft> call(DirNode rootNode) {
-						try {
-							// create draft file and setup front matter
-							FileNode draftNode = fileManager.createNewFile(assertDir(rootNode, DIR_DRAFTS), draftTitleToFilename(title));
-							setupDefaultFrontMatter(draftNode, title);
-							return Observable.just(new Draft(title, draftNode));
-
-						} catch (IOException ioe) {
-							return Observable.error(ioe);
-						}
+						return createNewDraft(title, assertDir(rootNode, DIR_DRAFTS));
 					}
 				});
+	}
+
+
+	public Observable<Draft> createNewDraft(final String title, DirNode draftDir) {
+		if (!isDraftsDirOrSubDir(draftDir)) throw new IllegalArgumentException("not a draf dir " + draftDir.getFullPath());
+		FileNode draftNode = fileManager.createNewFile(draftDir, draftTitleToFilename(title));
+		try {
+			// create draft file and setup front matter
+			setupDefaultFrontMatter(draftNode, title);
+			return Observable.just(new Draft(title, draftNode));
+
+		} catch (IOException ioe) {
+			return Observable.error(ioe);
+		}
 	}
 
 
@@ -242,18 +253,28 @@ public class JekyllManager {
 
 
 	/**
-	 * Returns true if the passed in dir is the Jekyll posts dir.
+	 * Returns true if the passed in dir is the Jekyll posts dir or sub dir.
 	 */
-	public boolean isPostsDir(DirNode node) {
-		return node.getPath().equals(DIR_POSTS);
+	public boolean isPostsDirOrSubDir(DirNode node) {
+		return isSpecialDirOrSubDir(node, DIR_POSTS);
 	}
 
 
 	/**
-	 * Returns true if the passed in dir is the Jekyll drafts dir.
+	 * Returns true if the passed in dir is the Jekyll drafts dir or sub dir.
 	 */
-	public boolean isDraftsDir(DirNode node) {
-		return node.getPath().equals(DIR_DRAFTS);
+	public boolean isDraftsDirOrSubDir(DirNode node) {
+		return isSpecialDirOrSubDir(node, DIR_DRAFTS);
+	}
+
+
+	private boolean isSpecialDirOrSubDir(DirNode node, String dirName) {
+		DirNode iter = node;
+		while (iter != null) {
+			if (iter.getPath().equals(dirName)) return true;
+			iter = iter.getParent();
+		}
+		return false;
 	}
 
 

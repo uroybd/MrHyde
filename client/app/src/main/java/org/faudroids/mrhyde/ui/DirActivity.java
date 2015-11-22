@@ -30,6 +30,7 @@ import org.faudroids.mrhyde.utils.DefaultErrorAction;
 import org.faudroids.mrhyde.utils.DefaultTransformer;
 import org.faudroids.mrhyde.utils.ErrorActionBuilder;
 import org.faudroids.mrhyde.utils.HideSpinnerAction;
+import org.roboguice.shaded.goole.common.base.Optional;
 
 import java.io.IOException;
 
@@ -111,7 +112,11 @@ public final class DirActivity extends AbstractDirActivity implements DirActionM
 			@Override
 			public void onClick(View v) {
 				addButton.collapse();
-				jekyllUiUtils.showNewPostDialog(jekyllManager, repository, new JekyllUiUtils.OnContentCreatedListener<Post>() {
+				jekyllUiUtils.showNewPostDialog(
+						jekyllManager,
+						repository,
+						Optional.of(pathNodeAdapter.getSelectedNode()),
+						new JekyllUiUtils.OnContentCreatedListener<Post>() {
 					@Override
 					public void onContentCreated(Post content) {
 						refreshTree();
@@ -123,7 +128,11 @@ public final class DirActivity extends AbstractDirActivity implements DirActionM
 			@Override
 			public void onClick(View v) {
 				addButton.collapse();
-				jekyllUiUtils.showNewDraftDialog(jekyllManager, repository, new JekyllUiUtils.OnContentCreatedListener<Draft>() {
+				jekyllUiUtils.showNewDraftDialog(
+						jekyllManager,
+						repository,
+						Optional.of(pathNodeAdapter.getSelectedNode()),
+						new JekyllUiUtils.OnContentCreatedListener<Draft>() {
 					@Override
 					public void onContentCreated(Draft content) {
 						refreshTree();
@@ -427,11 +436,11 @@ public final class DirActivity extends AbstractDirActivity implements DirActionM
 	@Override
 	protected void onDirSelected(DirNode node) {
 		// show / hide posts add button
-		if (jekyllManager.isPostsDir(node)) addPostButton.setVisibility(View.VISIBLE);
+		if (jekyllManager.isPostsDirOrSubDir(node)) addPostButton.setVisibility(View.VISIBLE);
 		else addPostButton.setVisibility(View.GONE);
 
 		// show / hide drafts add button
-		if (jekyllManager.isDraftsDir(node)) addDraftButton.setVisibility(View.VISIBLE);
+		if (jekyllManager.isDraftsDirOrSubDir(node)) addDraftButton.setVisibility(View.VISIBLE);
 		else addDraftButton.setVisibility(View.GONE);
 	}
 

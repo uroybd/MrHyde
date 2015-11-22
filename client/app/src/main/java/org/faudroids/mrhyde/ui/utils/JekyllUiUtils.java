@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import org.eclipse.egit.github.core.Repository;
 import org.faudroids.mrhyde.R;
+import org.faudroids.mrhyde.git.DirNode;
 import org.faudroids.mrhyde.git.FileNode;
 import org.faudroids.mrhyde.jekyll.Draft;
 import org.faudroids.mrhyde.jekyll.JekyllManager;
@@ -23,6 +24,7 @@ import org.faudroids.mrhyde.ui.ActivityIntentFactory;
 import org.faudroids.mrhyde.utils.DefaultErrorAction;
 import org.faudroids.mrhyde.utils.DefaultTransformer;
 import org.faudroids.mrhyde.utils.ErrorActionBuilder;
+import org.roboguice.shaded.goole.common.base.Optional;
 
 import java.text.DateFormat;
 
@@ -76,7 +78,7 @@ public class JekyllUiUtils {
 	}
 
 
-	public void showNewPostDialog(final JekyllManager jekyllManager, final Repository repository, final OnContentCreatedListener<Post> postListener) {
+	public void showNewPostDialog(final JekyllManager jekyllManager, final Repository repository, final Optional<DirNode> postDir, final OnContentCreatedListener<Post> postListener) {
 		showNewJekyllContentDialog(new NewJekyllContentStrategy<Post>(R.string.new_post, postListener) {
 			@Override
 			public String formatTitle(String title) {
@@ -90,13 +92,14 @@ public class JekyllUiUtils {
 
 			@Override
 			public Observable<Post> createNewItem(String title) {
-				return jekyllManager.createNewPost(title);
+				if (postDir.isPresent()) return jekyllManager.createNewPost(title, postDir.get());
+				else return jekyllManager.createNewPost(title);
 			}
-		}, repository);
+		}, repository );
 	}
 
 
-	public void showNewDraftDialog(final JekyllManager jekyllManager, Repository repository, OnContentCreatedListener<Draft> draftListener) {
+	public void showNewDraftDialog(final JekyllManager jekyllManager, Repository repository, final Optional<DirNode> draftDir, OnContentCreatedListener<Draft> draftListener) {
 		showNewJekyllContentDialog(new NewJekyllContentStrategy<Draft>(R.string.new_draft, draftListener) {
 			@Override
 			public String formatTitle(String title) {
@@ -110,7 +113,8 @@ public class JekyllUiUtils {
 
 			@Override
 			public Observable<Draft> createNewItem(String title) {
-				return jekyllManager.createNewDraft(title);
+				if (draftDir.isPresent()) return jekyllManager.createNewDraft(title, draftDir.get());
+				else return jekyllManager.createNewDraft(title);
 			}
 		}, repository);
 	}
